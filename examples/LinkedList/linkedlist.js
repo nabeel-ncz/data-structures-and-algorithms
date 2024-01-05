@@ -10,7 +10,7 @@ class LinkedList {
         this.head = null;
         this.size = 0;
     }
-    getHead(){
+    getHead() {
         return this.head;
     }
     prepend(value) {
@@ -57,7 +57,7 @@ class LinkedList {
         let prev = null;
         let next = null;
         let headNode = this.head;
-        while(headNode){
+        while (headNode) {
             next = headNode.next;
             headNode.next = prev;
             prev = headNode;
@@ -65,19 +65,58 @@ class LinkedList {
         }
         this.head = prev;
     }
+
+    isPallindrom() {
+        let slow = this.head;
+        let fast = this.head;
+
+        while (fast && fast.next) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        let secondHalf = this.reverse(slow);
+        let firstHead = this.head;
+        while (secondHalf) {
+            if (firstHead.value !== secondHalf.value) {
+                return false;
+            }
+            firstHead = firstHead.next;
+            secondHalf = secondHalf.next;
+        }
+        return true;
+    }
 }
 
 
-function detectCycle(head){
+function detectCycle(head) {
     let slow = head;
     let fast = head.next;
-    while(fast && fast.next){
-        if(slow === fast) return true;
+    while (fast && fast.next) {
+        if (slow === fast) return true;
 
         fast = fast.next.next;
         slow = slow.next;
     }
     return false;
 }
+
+
+function isTwoTreesAreIdentical(root1, root2) {
+    if (!root1 && !root2) {
+        return true;
+    }
+    if (!root1 || !root2) {
+        return false;
+    }
+    if (root1.value !== root2.value) {
+        return false;
+    }
+    return (
+        isTwoTreesAreIdentical(root1.left, root2.left) &&
+        isTwoTreesAreIdentical(root1.right, root2.right)
+        )
+}
+
 
 module.exports = { LinkedList, detectCycle };
