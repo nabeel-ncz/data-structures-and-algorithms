@@ -1,2 +1,4 @@
 leetcode/node_modules
 leetcode/package*.json
+node_modules
+package*.json
